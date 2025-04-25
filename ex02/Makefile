@@ -21,7 +21,7 @@ CFLAGS	= -Wextra -Wall -Werror -std=c++98
 INCLUDE	= -I.
 RM		= rm -rf
 
-NAME	= templates
+NAME	= MutantStack
 
 #---------------------------Messages--------------------------------------------
 
