@@ -13,9 +13,7 @@
 #pragma once
 
 #include <algorithm>
-#include <iostream>
 #include <cstdlib>
-#include <vector>
 #include <exception>
 
 template <typename T>
