@@ -43,6 +43,7 @@ void	Span::addNumber(int num)
 	_nums.push_back(num);
 	std::cout << "added " << num << " to span\n";
 }
+
 int	Span::shortestSpan() const
 {
 	if (_nums.size() < 2)

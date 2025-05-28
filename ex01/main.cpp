@@ -11,10 +11,12 @@
 /* ************************************************************************** */
 
 #include "Span.hpp"
+#include <cstdlib>
 #include <iostream>
 #include <vector>
 #include <list>
 #include <exception>
+#include <ctime>
 
 // Test helper function to check if exceptions are thrown correctly
 void testExceptionHandling()
@@ -22,67 +24,56 @@ void testExceptionHandling()
     std::cout << "Testing Exception Handling..." << std::endl;
     Span sp(3); // Span with capacity of 3 elements
 
-    try {
+    try
+	{
         sp.addNumber(10);
         sp.addNumber(20);
         sp.addNumber(30);
         sp.addNumber(40); // Should throw exception
     }
-    catch (const Span::FullContainerException& e) {
+    catch (const std::exception &e)
+	{
         std::cout << "Caught exception: " << e.what() << std::endl;
     }
-}
-
-void testAddSingleNumber()
-{
-    std::cout << "Testing Adding a Single Number..." << std::endl;
-    Span sp(5);
-    sp.addNumber(10);
-    sp.addNumber(20);
-    
-    std::cout << std::endl;
+	Span sp2(2);
+	try
+	{
+		sp2.shortestSpan();
+	}
+	catch (const std::exception &e)
+	{
+		std::cout << "Caught exception: " << e.what() << std::endl;
+	}
+	try
+	{
+		sp2.longestSpan();
+	}
+	catch (const std::exception &e)
+	{
+		std::cout << "Caught exception: " << e.what() << std::endl;
+	}
 }
 
 void testAddIteratorRange()
 {
     std::cout << "Testing Adding a Range of Numbers using Iterators..." << std::endl;
-    Span sp(100);
+    Span sp(10001);
 
+	srand(std::time(0));
     std::vector<int> numbers;
-	for (int i = 0; i < 100; i++)
+	for (int i = 0; i < 10000; i++)
 		numbers.push_back(rand());
     sp.addNumber(numbers.begin(), numbers.end());
 
-	std::cout << std::endl;
-}
-
-void testShortestAndLongestSpan()
-{
-    std::cout << "Testing Shortest and Longest Span..." << std::endl;
-    Span sp(5);
-    
-    sp.addNumber(10);
-    sp.addNumber(20);
-    sp.addNumber(30);
-    sp.addNumber(50);
-    sp.addNumber(100);
-    
-    try {
-        std::cout << "Shortest Span: " << sp.shortestSpan() << std::endl;
-        std::cout << "Longest Span: " << sp.longestSpan() << std::endl;
-    }
-    catch (const Span::NotEnoughMembersException& e) {
-        std::cout << "Caught exception: " << e.what() << std::endl;
-    }
+	std::cout << "Shortest Span: " << sp.shortestSpan() << std::endl;
+	std::cout << "Longest Span: " << sp.longestSpan() << std::endl;
 }
 
 int main()
 {
     try {
-        testExceptionHandling();
-        testAddSingleNumber();
         testAddIteratorRange();
-        testShortestAndLongestSpan();
+        testExceptionHandling();
     }
     catch (const std::exception& e) {
         std::cout << "Test failed: " << e.what() << std::endl;
@@ -90,4 +81,3 @@ int main()
 
     return 0;
 }
-
